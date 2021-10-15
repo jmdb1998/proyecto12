@@ -35,6 +35,6 @@ Route::get('usuarios/{id}', function($id){
 
 Route::get('saludo/{name}/{nickname?}', function ($name, $nickname = null){
     return $nickname
-        ? 'Bienvenido ' . $name . ' tu apodo es ' . $nickname
-        : 'Hola ' . $name;
+        ? 'Bienvenido ' . ucfirst($name) . ' tu apodo es ' . $nickname
+        : 'Hola ' . ucfirst($name);
 });
