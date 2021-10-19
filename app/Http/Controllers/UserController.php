@@ -7,7 +7,17 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function index(){
-        return '<h1>Usuarios</h1>';
+
+        if(request()->has('empty')){
+            $users = [];
+        }else{
+            $users = ['Joel','Ellie','Tess','Tommy','Bill'];
+        }
+
+        $title = 'Usuarios';
+
+        return view('users', compact('users','title'));
+        //return view('users')->with(compact('users','title')); Es otra forma de pasarle variables a una vista
     }
 
     public function create()
