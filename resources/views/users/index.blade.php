@@ -1,13 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-</head>
+@extends('layout')
 
-<body>
-    <h1>{{$title}}</h1>
+@section('title', 'Listado de usuario')
+
+@section('content')
+
+        <h1>{{ $title }}</h1>
+        @empty($users)
+            <p>No hay usuarios</p>
+        @else
+            <ul>
+                @foreach ($users as $user)
+                    <li>{{ $user }}</li>
+                @endforeach
+            </ul>
+        @endempty
+
+@endsection
+
+@section('sidebar')
+    Barra Lateral
+@endsection
 
 {{--    @if(!empty($users))--}}
 
@@ -21,16 +33,6 @@
 {{--        <p>No hay usuarios</p>--}}
 {{--    @endif--}}
 
-    @empty($users)
-        <p>No hay usuarios</p>
-    @else
-        <ul>
-            @foreach ($users as $user)
-                <li>{{$user}}</li>
-            @endforeach
-        </ul>
-    @endempty
-
 
 {{--    <ul>--}}
 {{--        @forelse($users as $user)--}}
@@ -39,8 +41,3 @@
 {{--            <p>No hay usuarios</p>--}}
 {{--        @endforelse--}}
 {{--    </ul>--}}
-
-
-
-</body>
-</html>
