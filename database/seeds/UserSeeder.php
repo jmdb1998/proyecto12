@@ -34,7 +34,22 @@ class UserSeeder extends Seeder
             'name' => 'Pepe Viyuela',
             'email' => 'pepe@email.com',
             'password' => bcrypt('123456'),
-            'profession_id' => Profession::whereTitle('Desarrollador Front-End')->value('id')
+            'profession_id' => Profession::whereTitle('Desarrollador Front-End')->value('id'),
+            'is_admin' => true
+        ]);
+
+        User::create([
+            'name' => 'Juan Martinez',
+            'email' => 'juan@email.com',
+            'password' => bcrypt('123456'),
+            'profession_id' => Profession::whereTitle('Desarrollador Front-End')->value('id'),
+        ]);
+
+        User::create([
+            'name' => 'Jaime Sanchez',
+            'email' => 'jaime@email.com',
+            'password' => bcrypt('123456'),
+            'profession_id' => null,
         ]);
     }
 }

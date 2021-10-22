@@ -26,4 +26,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function profession(){
+        return $this->belongsTo(Profession::class);
+    }
+
+    public function is_admin(){
+        return $this->is_admin();
+    }
 }
