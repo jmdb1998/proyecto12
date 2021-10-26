@@ -8,5 +8,7 @@
 
         <p>Mostrando detalles del usuario: {{ $user->name }}</p>
 
+        <p><a href="{{ url('usuarios') }}">Regresar el listado de usuarios</a></p>
+
 @endsection
 
