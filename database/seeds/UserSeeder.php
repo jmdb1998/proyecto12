@@ -56,6 +56,6 @@ class UserSeeder extends Seeder
             'profession_id' => Profession::whereTitle('Desarrollador Back-End')->value('id'),
         ]);
 
-        factory(User::class, 6)->create();
+        factory(User::class, 48)->create();
     }
 }
