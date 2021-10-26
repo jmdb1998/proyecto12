@@ -5,15 +5,16 @@
 @section('content')
 
         <h1>{{ $title }}</h1>
-        @empty($users)
-            <p>No hay usuarios</p>
-        @else
+        @if($users->count())
             <ul>
                 @foreach ($users as $user)
                     <li>{{ $user->name }}</li>
                 @endforeach
             </ul>
-        @endempty
+
+        @else
+            <p>No hay usuarios</p>
+        @endif
 
 @endsection
 
