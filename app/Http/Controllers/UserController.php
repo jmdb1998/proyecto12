@@ -29,7 +29,12 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = User::find($id);
+        $user = User::find($id); //para evitar que de un error y muertre la url del proyecto si pones findOrFail funciona sin el if
+
+        if ($user == null)
+        {
+            return response()->view('errors.404', [], 404);
+        }
         return view('users.show', compact('user'));
     }
 }
