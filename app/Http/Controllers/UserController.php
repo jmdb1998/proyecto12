@@ -27,10 +27,8 @@ class UserController extends Controller
         return 'Creando un nuevo usuario';
     }
 
-    public function show($id)
+    public function show(User $user)
     {
-        $user = User::find($id); //para evitar que de un error y muertre la url del proyecto si pones findOrFail funciona sin el if
-
         if ($user == null)
         {
             return response()->view('errors.404', [], 404);
