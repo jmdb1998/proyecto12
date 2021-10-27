@@ -21,7 +21,9 @@ Route::get('/', function () {
 
 Route::get('usuarios', 'UserController@index')->name('users.index');
 
-Route::get('usuarios/nuevo', 'UserController@create')->name('users.create');
+Route::get('usuarios/crear', 'UserController@create')->name('users.create');
+
+Route::post('usuarios/crear', 'UserController@store')->name('users.store');
 
 Route::get('usuarios/{user}', 'UserController@show')->where('id','[0-9]+')->name('users.show');
 

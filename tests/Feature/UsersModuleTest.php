@@ -54,9 +54,9 @@ class UsersModuleTest extends TestCase
     /** @test */
     public function it_loads_the_new_user_page()
     {
-        $this->get('usuarios/nuevo')
+        $this->get('usuarios/crear')
             ->assertStatus(200)
-            ->assertSee('Creando un nuevo usuario');
+            ->assertSee('Crear un Usuario');
     }
 
     /** @test */
