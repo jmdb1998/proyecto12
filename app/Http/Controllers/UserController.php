@@ -27,9 +27,21 @@ class UserController extends Controller
         return view('users.create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        return 'Procesando INformacion.....';
+        //dd($request->all());
+        if (empty($request->name)){
+            return redirect()->route('users.create')->withErrors([
+                'name' => 'El campo nombre es obligatorio'
+            ]);
+        }
+        User::create([
+            'name' => $request->name,
+            'email'=> $request->email,
+            'password' => bcrypt($request->password)
+        ]);
+
+        return redirect('users.index');
     }
 
     public function show(User $user)
