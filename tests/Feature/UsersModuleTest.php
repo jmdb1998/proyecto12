@@ -70,13 +70,13 @@ class UsersModuleTest extends TestCase
     {
         $this->post('usuarios', [
             'name' => 'Pepe',
-            'email'=> 'pepe@email.es',
+            'email'=> 'emilio@email.es',
             'password' => '123456'
         ])->assertRedirect('usuarios');
 
         $this->assertCredentials([
             'name' => 'Pepe',
-            'email'=> 'pepe@email.es',
+            'email'=> 'emilio@email.es',
             'password' => '123456'
         ]);
     }
@@ -84,17 +84,16 @@ class UsersModuleTest extends TestCase
     /** @test */
     public function the_name_is_required()
     {
-        //$this->withoutExceptionHandling();
-
-        $this->post('usuarios', [
+        $this->from('usuarios/crear')
+            ->post('usuarios', [
             'name' => '',
-            'email'=> 'pepe@email.es',
+            'email'=> 'emilio@email.es',
             'password' => '123456'
         ])->assertRedirect('usuarios/crear')
-        ->assertSessionHasErrors(['name']);
+        ->assertSessionHasErrors(['name' => 'El campo nombre es obligatorio']);
 
-        $this->assertDatabaseMissing('users', [
-            'email'=> 'pepe@email.es'
-        ]);
+        $this->assertDatabaseMissing('users',['email' => 'emilio@email.es']);
+
+        $this->assertEquals(0, User::count());
     }
 }
