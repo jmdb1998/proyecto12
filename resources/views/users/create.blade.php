@@ -11,11 +11,11 @@
         <div class="alert alert-danger">
             <h6>Por favor corrige los sigientes errores</h6>
 
-<!--            <ul>
+            <ul>
                 @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
-            </ul>-->
+            </ul>
 
         </div>
     @endif
