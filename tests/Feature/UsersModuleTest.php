@@ -264,4 +264,21 @@ class UsersModuleTest extends TestCase
         $this->assertDatabaseMissing('users',['name' => 'Pepe']);
 
     }
+
+    /** @test */
+    public function the_password_is_required_when_updating_an_user()
+    {
+      $user = factory(User::class)->create();
+
+        $this->from('usuarios/'.$user->id.'/editar')
+            ->put('usuarios/'.$user->id, [
+                'name' => 'Pepe',
+                'email'=> 'pepe@mail.es',
+                'password' => ''
+            ])->assertRedirect('usuarios/'.$user->id.'/editar')
+            ->assertSessionHasErrors('password');
+
+        $this->assertDatabaseMissing('users',['email' => 'pepe@mail.es']);
+
+    }
 }
