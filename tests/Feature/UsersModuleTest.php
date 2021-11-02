@@ -246,8 +246,9 @@ class UsersModuleTest extends TestCase
     /** @test */
     public function the_email_must_be_unique_when_updating_a_user()
     {
-        self::markTestIncomplete();
-        return;
+        factory(User::class)->create([
+            'email' => 'existing_email@email.es'
+        ]);
         //$this->withoutExceptionHandling();
         $user = factory(User::class)->create([
             'email' => 'pepe@mail.es',
@@ -256,29 +257,53 @@ class UsersModuleTest extends TestCase
         $this->from('usuarios/'.$user->id.'/editar')
             ->put('usuarios/'.$user->id, [
                 'name' => 'Pepe',
-                'email'=> 'pepe@mail.es',
+                'email'=> 'existing_email@email.es',
                 'password' => '123456'
             ])->assertRedirect('usuarios/'.$user->id.'/editar')
             ->assertSessionHasErrors('email');
-
-        $this->assertDatabaseMissing('users',['name' => 'Pepe']);
-
     }
 
     /** @test */
-    public function the_password_is_required_when_updating_an_user()
+    public function the_password_is_optional_when_updating_an_user()
     {
-      $user = factory(User::class)->create();
+        $oldPassword = 'CLAVE ANTERIOR';
+      $user = factory(User::class)->create([
+          'password' => bcrypt($oldPassword)
+      ]);
 
         $this->from('usuarios/'.$user->id.'/editar')
             ->put('usuarios/'.$user->id, [
                 'name' => 'Pepe',
                 'email'=> 'pepe@mail.es',
                 'password' => ''
-            ])->assertRedirect('usuarios/'.$user->id.'/editar')
-            ->assertSessionHasErrors('password');
+            ])->assertRedirect('usuarios/'.$user->id);
 
-        $this->assertDatabaseMissing('users',['email' => 'pepe@mail.es']);
+        $this->assertCredentials([
+            'name' => 'Pepe',
+            'email'=> 'pepe@mail.es',
+            'password' => $oldPassword
+        ]);
 
     }
+
+    /** @test */
+public function the_user_email_can_stay_the_same_when_updating_a_user()
+{
+
+    $user = factory(User::class)->create([
+        'email' => 'pepe@mail.es',
+    ]);
+
+    $this->from('usuarios/'.$user->id.'/editar')
+        ->put('usuarios/'.$user->id, [
+            'name' => 'Pepe',
+            'email'=> 'pepe@mail.es',
+            'password' => '123456'
+        ])->assertRedirect('usuarios/'.$user->id);
+
+    $this->assertDatabaseHas('users', [
+        'name' => 'Pepe',
+        'email'=> 'pepe@mail.es',
+    ]);
+}
 }
