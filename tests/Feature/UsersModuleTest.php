@@ -287,23 +287,39 @@ class UsersModuleTest extends TestCase
     }
 
     /** @test */
-public function the_user_email_can_stay_the_same_when_updating_a_user()
-{
+    public function the_user_email_can_stay_the_same_when_updating_a_user()
+    {
 
-    $user = factory(User::class)->create([
-        'email' => 'pepe@mail.es',
-    ]);
+        $user = factory(User::class)->create([
+            'email' => 'pepe@mail.es',
+        ]);
 
-    $this->from('usuarios/'.$user->id.'/editar')
-        ->put('usuarios/'.$user->id, [
+        $this->from('usuarios/'.$user->id.'/editar')
+            ->put('usuarios/'.$user->id, [
+                'name' => 'Pepe',
+                'email'=> 'pepe@mail.es',
+                'password' => '123456'
+            ])->assertRedirect('usuarios/'.$user->id);
+
+        $this->assertDatabaseHas('users', [
             'name' => 'Pepe',
             'email'=> 'pepe@mail.es',
-            'password' => '123456'
-        ])->assertRedirect('usuarios/'.$user->id);
+        ]);
+    }
 
-    $this->assertDatabaseHas('users', [
-        'name' => 'Pepe',
-        'email'=> 'pepe@mail.es',
-    ]);
-}
+    /** @test */
+    public function it_deletes_a_user()
+    {
+        $this->withoutExceptionHandling();
+        $user = factory(User::class)->create();
+
+        $this->delete('usuarios/'. $user->id)
+            ->assertRedirect('usuarios');
+
+        $this->assertDatabaseMissing('users', [
+            'id' => $user->id,
+        ]);
+
+        //$this->assertSame(User::count()); Otra forma de comprobarlo
+    }
 }
