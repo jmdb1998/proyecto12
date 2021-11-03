@@ -68,13 +68,7 @@ class UsersModuleTest extends TestCase
     /** @test */
     public function it_creates_a_new_user()
     {
-        $this->post('usuarios', [
-            'name' => 'Pepe',
-            'email'=> 'emilio@email.es',
-            'password' => '123456',
-            'bio' => 'Programador de Laravel y Vue.js',
-            'twitter' => 'https://twitter.com/pepe'
-        ])->assertRedirect('usuarios');
+        $this->post('usuarios', $this->getValidData())->assertRedirect('usuarios');
 
         $this->assertCredentials([
             'name' => 'Pepe',
@@ -318,7 +312,7 @@ class UsersModuleTest extends TestCase
     /** @test */
     public function it_deletes_a_user()
     {
-        $this->withoutExceptionHandling();
+
         $user = factory(User::class)->create();
 
         $this->delete('usuarios/'. $user->id)
@@ -329,5 +323,37 @@ class UsersModuleTest extends TestCase
         ]);
 
         //$this->assertSame(User::count()); Otra forma de comprobarlo
+    }
+
+    /** @test */
+    public function the_twitter_field_its_optional()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->post('usuarios', $this->getValidData([
+            'twitter' => null
+        ]))->assertRedirect('usuarios');
+
+        $this->assertCredentials([
+            'name' => 'Pepe',
+            'email'=> 'emilio@email.es',
+            'password' => '123456'
+        ]);
+
+        $this->assertDatabaseHas('user_profiles', [
+            'bio' => 'Programador de Laravel y Vue.js',
+            'twitter' => null,
+            'user_id' => User::findByEmail('emilio@email.es')->id,
+        ]);
+    }
+
+    public function getValidData(array $custom = []){
+        return array_filter(array_merge([
+            'name' => 'Pepe',
+            'email'=> 'emilio@email.es',
+            'password' => '123456',
+            'bio' => 'Programador de Laravel y Vue.js',
+            'twitter' => 'https://twitter.com/pepe'
+        ], $custom));
     }
 }
