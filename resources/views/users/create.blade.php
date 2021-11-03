@@ -27,25 +27,35 @@
             <form action="{{ route('users.store') }}" method="POST">
                 {{ csrf_field() }}
 
-                <label for="name">Nombre:</label>
-                <input type="text" name="name" value="{{ old('name') }}">
-                {{--@if($errors->has('name'))
-                    <p>{{ $errors->first('name') }}</p>
-                @endif--}}
-                <br>
-                <label for="email">Correo:</label>
-                <input type="text" name="email" value="{{ old('email') }}">
-                {{--@if($errors->has('email'))
-                    <p>{{ $errors->first('email') }}</p>
-                @endif--}}
-                <br>
-                <label for="password">Contraseña:</label>
-                <input type="password" name="password" value="{{ old('password') }}">
-                {{--@if($errors->has('password'))
-                    <p>{{ $errors->first('password') }}</p>
-                @endif--}}
-                <br/>
-                <button type="submit">Crear Usuario</button>
+                <div class="form-group">
+                    <label for="name">Nombre:</label>
+                    <input type="text" name="name" value="{{ old('name') }}">
+
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo:</label>
+                    <input type="text" name="email" value="{{ old('email') }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" name="password" value="{{ old('password') }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="bio">Biografía</label>
+                    <textarea type="text" name="bio" class="form-control">{{ old('bio') }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Twitter</label>
+                    <input type="text" name="twitter" class="form-control" value="{{ old('twitter') }}" placeholder="Url de tu usuario de twitter">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit">Crear Usuario</button>
+                </div>
             </form>
         </div>
     </div>
