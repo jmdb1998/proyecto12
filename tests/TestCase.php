@@ -7,4 +7,11 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
+
+    public function assertDatabaseEmpty($table, $connection = null){
+        $total = $this->getConnection($connection)->table($table)->count();
+        $this->assertSame(0,$total,sprintf(
+            "fail asserting the table [%s] is empty. %s %s found", $table, $total, str_plural('row', $total)
+        ));
+    }
 }
