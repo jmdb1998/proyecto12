@@ -29,18 +29,18 @@
 
                 <div class="form-group">
                     <label for="name">Nombre:</label>
-                    <input type="text" name="name" value="{{ old('name') }}">
+                    <input type="text" name="name" class="form-control" value="{{ old('name') }}">
 
                 </div>
 
                 <div class="form-group">
                     <label for="email">Correo:</label>
-                    <input type="text" name="email" value="{{ old('email') }}">
+                    <input type="text" name="email" class="form-control" value="{{ old('email') }}">
                 </div>
 
                 <div class="form-group">
                     <label for="password">Contraseña:</label>
-                    <input type="password" name="password" value="{{ old('password') }}">
+                    <input type="password" name="password" class="form-control" value="{{ old('password') }}">
                 </div>
 
                 <div class="form-group">
@@ -49,8 +49,20 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Twitter</label>
+                    <label for="twitter">Twitter</label>
                     <input type="text" name="twitter" class="form-control" value="{{ old('twitter') }}" placeholder="Url de tu usuario de twitter">
+                </div>
+
+                <div class = "form-group">
+                    <label for="profession_id">Profesion</label>
+                    <select name="profession_id" id="profession_id" class="form-control">
+                        <option value="">Selecciona una opcion</option>
+                        @foreach($professions as $profession)
+                        <option value="{{ $profession->id }}"
+                        {{ old('profession_id') == $profession->id ? 'selected' : '' }}
+                        >{{ $profession->title }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="form-group">
