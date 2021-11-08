@@ -56,7 +56,8 @@ class User extends Authenticatable
 
             $user->profile()->create([
                 'bio' => $data['bio'],
-                'twitter' => $data['twitter'] ?? null,
+                'twitter' => $data['twitter'],
+                'profession_id' => $data['profession_id'],
             ]);
         });
     }

@@ -14,21 +14,21 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $profession_id = Profession::whereTitle('Desarrollador Back-End')->value('id');
+        $professionId = Profession::whereTitle('Desarrollador Back-End')->value('id');
 
         $user = User::create([
-            'name' => 'Pepe Viyuela',
-            'email' => 'pepe@email.com',
+            'name' => 'Pepe Pérez',
+            'email' => 'pepe@mail.es',
             'password' => bcrypt('123456'),
-            'is_admin' => true
+            'is_admin' => true,
         ]);
 
         $user->profile()->create([
             'bio' => 'Programador',
-            'profession_id' => $profession_id
+            'profession_id' => $professionId,
         ]);
 
-        factory(User::class, 49)->create()->each(function ($user){
+        factory(User::class, 49)->create()->each(function ($user) {
             $user->profile()->create(
                 factory(App\UserProfile::class)->raw()
             );
