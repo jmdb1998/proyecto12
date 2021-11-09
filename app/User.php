@@ -36,6 +36,10 @@ class User extends Authenticatable
         return $this->hasOne(UserProfile::class);
     }
 
+    public function skills(){
+        return $this->belongsToMany(Skill::class);
+    }
+
     public function is_admin(){
         return $this->is_admin();
     }
@@ -59,6 +63,8 @@ class User extends Authenticatable
                 'twitter' => $data['twitter'],
                 'profession_id' => $data['profession_id'],
             ]);
+
+            $user->skills()->attach($data['skills'] ?? []);
         });
     }
 }
