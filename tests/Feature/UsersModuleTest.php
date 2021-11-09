@@ -383,7 +383,6 @@ class UsersModuleTest extends TestCase
     }
 
 
-
     public function getValidData(array $custom = []){
 
         $this->profession = factory(Profession::class)->create();
