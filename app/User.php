@@ -58,7 +58,7 @@ class User extends Authenticatable
 
             ]);
 
-            $user->role = $data['role'];
+            $user->role = $data['role'] ?? 'user';
 
             $user->save();
 
