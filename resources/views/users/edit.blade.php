@@ -3,18 +3,21 @@
 @section('title', 'Edición de un usuario')
 
 @section('content')
-    <h1>Editar Usuario</h1>
+    @card
+        @slot('header', 'Editar Usuario')
 
-    @include('shared._errors')
+        @include('shared._errors')
 
-    <form action="{{ route('users.update', $user) }}" method="POST">
-        {{ method_field('PUT') }}
+        <form action="{{ route('users.update', $user) }}" method="POST">
+            {{ method_field('PUT') }}
 
-       @include('users._fields')
+            @include('users._fields')
 
-        <div class="form-group mt-4">
-            <button type="submit">Actualizar usuario</button>
-            <a href="{{ route('users.index') }}" class="btn btn-link">Regresar al listado</a>
-        </div>
-    </form>
+            <div class="form-group mt-4">
+                <button type="submit">Actualizar usuario</button>
+                <a href="{{ route('users.index') }}" class="btn btn-link">Regresar al listado</a>
+            </div>
+        </form>
+
+    @endcard
 @endsection
