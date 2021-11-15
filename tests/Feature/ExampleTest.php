@@ -9,15 +9,12 @@ class ExampleTest extends TestCase
 {
     /**
      * A basic test example.
-     *vendor/bin/phpunit comando para ejecutar los tests
-     * php artisan make:test NombreTest comando para generar test de php
+     *
      * @return void
      */
     public function testBasicTest()
     {
-        $this->withoutExceptionHandling();
-
-        $response = $this->get('/');
+        $response = $this->get('/usuarios');
 
         $response->assertStatus(200);
     }

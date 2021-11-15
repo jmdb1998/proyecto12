@@ -1,10 +1,10 @@
 @extends('layout')
 
-@section('title', 'Edición de un usuario')
+@section('title', 'Editar usuario')
 
 @section('content')
     @card
-        @slot('header', 'Editar Usuario')
+        @slot('header', 'Editar usuario')
 
         @include('shared._errors')
 
@@ -15,9 +15,8 @@
 
             <div class="form-group mt-4">
                 <button type="submit">Actualizar usuario</button>
-                <a href="{{ route('users.index') }}" class="btn btn-link">Regresar al listado</a>
+                <a href="{{ route('users.index') }}" class="btn btn-link">Regresar al listado de usuarios</a>
             </div>
         </form>
-
     @endcard
 @endsection

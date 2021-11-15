@@ -9,11 +9,10 @@ class Profession extends Model
 {
     use SoftDeletes;
 
-    protected $fillable =['title'];
+    protected $fillable = ['title'];
 
-
-    public function users(){
-
+    public function users()
+    {
         return $this->hasMany(User::class);
     }
 }

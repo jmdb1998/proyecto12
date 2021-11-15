@@ -14,10 +14,9 @@ class DeleteUsersTest extends TestCase
     /** @test */
     public function it_deletes_a_user()
     {
-
         $user = factory(User::class)->create();
 
-        $this->delete('usuarios/'. $user->id)
+        $this->delete('usuarios/' . $user->id)
             ->assertRedirect('usuarios');
 
         $this->assertDatabaseEmpty('users');

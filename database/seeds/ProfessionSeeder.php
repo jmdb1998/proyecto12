@@ -15,14 +15,13 @@ class ProfessionSeeder extends Seeder
         Profession::create([
             'title' => 'Desarrollador Back-End'
         ]);
-
         Profession::create([
-            'title' => 'Desarrollador Front-End']);
-
+            'title' => 'Desarrollador Front-End'
+        ]);
         Profession::create([
-            'title' => 'Diseñador Web']);
+            'title' => 'Diseñador Web'
+        ]);
 
-        factory(Profession::class, 8)->create();
-
+        factory(Profession::class, 7)->create();
     }
 }

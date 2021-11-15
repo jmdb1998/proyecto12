@@ -12,14 +12,13 @@ class ListUsersTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_show_the_users_list_page()
+    public function it_shows_the_users_list()
     {
         factory(User::class)->create([
-            'name'=> 'Joel'
+            'name' => 'Joel',
         ]);
-
         factory(User::class)->create([
-            'name'=> 'Ellie'
+            'name' => 'Ellie'
         ]);
 
         $this->get('usuarios')
@@ -30,11 +29,11 @@ class ListUsersTest extends TestCase
     }
 
     /** @test */
-    public function it_shows_a_default_message_if_the_user_list_is_empty()
+    public function it_shows_a_default_message_if_the_users_list_is_empty()
     {
         $this->get('usuarios')
             ->assertStatus(200)
             ->assertSee('Usuarios')
-            ->assertSee('No hay usuarios');
+            ->assertSee('No hay usuarios registrados');
     }
 }

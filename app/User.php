@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password'
     ];
 
     /**
@@ -28,47 +28,28 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function profession(){
+    public function profession()
+    {
         return $this->belongsTo(Profession::class);
     }
 
-    public function profile(){
+    public function profile()
+    {
         return $this->hasOne(UserProfile::class)->withDefault();
     }
 
-    public function skills(){
+    public function skills()
+    {
         return $this->belongsToMany(Skill::class);
     }
 
-    public function is_admin(){
+    public function isAdmin()
+    {
         return $this->role === 'admin';
     }
 
-    public static function findByEmail($email){
+    public static function findByEmail($email)
+    {
         return static::where('email', $email)->first();
-    }
-
-    public static function createUser($data){
-
-        DB::transaction(function () use ($data){
-            $user = new User([
-                'name' => $data['name'],
-                'email'=> $data['email'],
-                'password' => bcrypt($data['password']),
-
-            ]);
-
-            $user->role = $data['role'] ?? 'user';
-
-            $user->save();
-
-            $user->profile()->create([
-                'bio' => $data['bio'],
-                'twitter' => $data['twitter'],
-                'profession_id' => $data['profession_id'],
-            ]);
-
-            $user->skills()->attach($data['skills'] ?? []);
-        });
     }
 }

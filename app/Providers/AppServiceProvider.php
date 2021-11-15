@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blade::component('shared._card','card'); //pre cargamos el _card en el boot de la aplicacion
+        Blade::component('shared._card', 'card');
     }
 
     /**

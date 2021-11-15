@@ -23,7 +23,7 @@
         </whitelist>
     </filter>
     <!--<listeners>
-        <listener class ="NunoMaduro\Collision\Adapters\Phpunit\Printer" /> No funciona y no se el porque
+        <listener class="NunoMaduro\Collision\Adapters\Phpunit\Printer"/>
     </listeners>-->
     <php>
         <env name="APP_ENV" value="testing"/>

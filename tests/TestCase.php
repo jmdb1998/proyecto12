@@ -6,14 +6,14 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, TestHelper;
+    use CreatesApplication, TestHelpers;
 
-    public function setUp(){
+    protected $defaultData;
 
+    public function setUp()
+    {
         parent::setUp();
 
         $this->withoutExceptionHandling();
-
     }
-
 }

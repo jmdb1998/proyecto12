@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Role;
 use App\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class CreateUserRequest extends FormRequest
@@ -31,26 +32,54 @@ class CreateUserRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
             'role' => [
-                'nullable',Rule::in(Role::getList())
-            ] ,
+                'nullable',
+                Rule::in(Role::getList())
+            ],
             'bio' => 'required',
-            'twitter' => 'nullable|url|present',
-            'profession_id' => ['nullable','present',Rule::exists('professions','id')->whereNull('deleted_at')],
-            'skills' => ['array', Rule::exists('skills', 'id')],
-
+            'twitter' => 'nullable|present|url',
+            'profession_id' => [
+                'nullable', 'present',
+                Rule::exists('professions','id')->whereNull('deleted_at')
+            ],
+            'skills' => [
+                'array',
+                Rule::exists('skills', 'id'),
+            ],
         ];
     }
 
-    public function messages(){
-        return[
+    public function messages()
+    {
+        return [
             'name.required' => 'El campo nombre es obligatorio',
             'email.required' => 'El campo email es obligatorio',
-            'password.required' => 'El campo password es obligatorio',
-            'email.unique' => 'Ese email ya existe'
+            'password.required' => 'El campo contraseña es obligatorio',
+            'email.unique' => 'Ese email ya existe en la BD',
         ];
     }
 
-    public function createUser(){
-        User::createUser($this->validated());
+    public function createUser()
+    {
+        $data = $this->validated();
+
+        DB::transaction(function () use ($data) {
+            $user = new User([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+            ]);
+
+            $user->role = $data['role'] ?? 'user';
+
+            $user->save();
+
+            $user->profile()->create([
+                'bio' => $data['bio'],
+                'twitter' => $data['twitter'],
+                'profession_id' => $data['profession_id']
+            ]);
+
+            $user->skills()->attach($data['skills'] ?? []);
+        });
     }
 }

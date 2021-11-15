@@ -1,6 +1,6 @@
 <?php
 
-return[
+return [
     'roles' => [
         'admin' => 'Admin',
         'user' => 'Usuario'
