@@ -30,7 +30,7 @@ class ProfileController extends Controller
         $user->profile->update([
             'bio' => $request->bio,
             'twitter' => $request->twitter,
-            'profession_id' => $request->profession_id,
+            'profession_id' => $request->profession_id
         ]);
 
         return back();

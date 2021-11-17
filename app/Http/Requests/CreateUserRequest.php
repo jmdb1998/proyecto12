@@ -60,12 +60,12 @@ class CreateUserRequest extends FormRequest
 
     public function createUser()
     {
-        DB::transaction(function (){
+        DB::transaction(function () {
             $user = User::create([
                 'name' => $this->name,
                 'email' => $this->email,
                 'password' => bcrypt($this->password),
-                'role' => $this->role ?? 'user'
+                'role' => $this->role ?? 'user',
             ]);
 
             $user->profile()->create([

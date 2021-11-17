@@ -43,7 +43,7 @@ class UserProfileTest extends TestCase
 
         $response->assertRedirect('editar-perfil');
 
-        $this->assertDatabaseHas('users',[
+        $this->assertDatabaseHas('users', [
             'name' => 'Pepe',
             'email' => 'pepe@mail.es',
         ]);
@@ -63,14 +63,14 @@ class UserProfileTest extends TestCase
         ]);
 
         $response = $this->put('editar-perfil', $this->withData([
-            'role' => 'admin'
+            'role' => 'admin',
         ]));
 
         $response->assertRedirect();
 
-        $this->assertDatabaseHas('users',[
-           'id' => $user->id,
-           'role' => 'user',
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'role' => 'user',
         ]);
     }
 
@@ -83,7 +83,7 @@ class UserProfileTest extends TestCase
 
         $response = $this->put('editar-perfil', $this->withData([
             'email' => 'pepe@mail.es',
-            'password' => bcrypt('new123'),
+            'password' => bcrypt('new456'),
         ]));
 
         $response->assertRedirect();
