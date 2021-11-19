@@ -73,13 +73,13 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        $user = User::onlyTrashed()->where('id', $id)->firstOrFail;
+        $user = User::onlyTrashed()->where('id', $id)->firstOrFail();
 
        //abort_unless($user->trashed(), 404); esto se hace con el User $user
 
         $user->forceDelete();
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.trashed');
     }
 
     protected function form($view, User $user)

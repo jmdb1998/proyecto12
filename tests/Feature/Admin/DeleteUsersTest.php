@@ -37,7 +37,7 @@ class DeleteUsersTest extends TestCase
         ]);
 
         $this->delete('usuarios/' . $user->id)
-            ->assertRedirect('usuarios');
+            ->assertRedirect('usuarios/papelera');
 
         $this->assertDatabaseEmpty('users');
     }
