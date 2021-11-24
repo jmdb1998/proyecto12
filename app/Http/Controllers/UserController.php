@@ -16,10 +16,11 @@ class UserController extends Controller
     public function index()
     {
         $users = User::query()
-            ->when(request('team'), function ($query, $team){
+            ->with('team', 'skills', 'profile.profession')
+            ->when(request('team'), function ($query, $team) {
                 if ($team === 'with_team') {
                     $query->has('team');
-                }elseif ($team === 'without_team'){
+                } elseif ($team === 'without_team') {
                     $query->doesntHave('team');
                 }
             })
@@ -85,8 +86,6 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::onlyTrashed()->where('id', $id)->firstOrFail();
-
-       //abort_unless($user->trashed(), 404); esto se hace con el User $user
 
         $user->forceDelete();
 
