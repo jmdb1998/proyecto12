@@ -26,9 +26,6 @@
                 </thead>
                 <tbody>
                 @each('users._row', $users, 'user')
-                {{--@foreach($users as $user)
-                    @include('users._row', ['user' => $user]) Es lo mismo que lo de arriba
-                @endforeach--}}
                 </tbody>
             </table>
             {{ $users->links() }}
