@@ -16,9 +16,18 @@ class UserController extends Controller
     public function index()
     {
         $users = User::query()
+            ->when(request('team'), function ($query, $team){
+                if ($team === 'with_team') {
+                    $query->has('team');
+                }elseif ($team === 'without_team'){
+                    $query->doesntHave('team');
+                }
+            })
             ->when(request('search'), function ($query, $search){
-                $query->where('name', 'LIKE', "%{$search}%")
-                ->orWhere('email', 'LIKE', "%{$search}%"); //Esto es un Or para las consultas
+                $query->where(function ($query) use ($search){
+                    $query->where('name', 'LIKE', "%{$search}%")
+                        ->orWhere('email', 'LIKE', "%{$search}%");
+                });
             })
             ->orderBy('created_at', 'DESC')
             ->paginate();
