@@ -25,8 +25,7 @@ class DeleteUsersTest extends TestCase
         $this->assertSoftDeleted('users', [
             'id' => $user->id,
         ]);
-
-        $this->assertSoftDeleted('user_profiles',[
+        $this->assertSoftDeleted('user_profiles', [
             'user_id' => $user->id,
         ]);
 
@@ -41,7 +40,6 @@ class DeleteUsersTest extends TestCase
         $user = factory(User::class)->create([
             'deleted_at' => now(),
         ]);
-
         $user->profile()->save(factory(UserProfile::class)->make());
 
         $this->delete('usuarios/' . $user->id)
@@ -51,14 +49,13 @@ class DeleteUsersTest extends TestCase
     }
 
     /** @test */
-    public function it_cannot_delete_a_user_that_is_not_en_the_trash()
+    public function it_cannot_delete_a_user_that_is_not_in_the_trash()
     {
         $this->withExceptionHandling();
 
         $user = factory(User::class)->create([
             'deleted_at' => null,
         ]);
-
         $user->profile()->save(factory(UserProfile::class)->make());
 
         $this->delete('usuarios/' . $user->id)

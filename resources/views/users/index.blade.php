@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Listado de usuarios')
+@section('title', 'Usuarios')
 
 @section('content')
     <h1>{{ $title }}</h1>
@@ -11,7 +11,6 @@
     @include('users._filters')
 
     @if( $users->count() )
-
         <div class="table-responsive-lg">
             <table class="table table-sm">
                 <thead class="thead-dark">
@@ -25,7 +24,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @each('users._row', $users, 'user')
+                    @each('users._row', $users, 'user')
                 </tbody>
             </table>
             {{ $users->links() }}
@@ -33,8 +32,4 @@
     @else
         <p>No hay usuarios registrados</p>
     @endif
-@endsection
-
-@section('sidebar')
-    Barra Lateral
 @endsection

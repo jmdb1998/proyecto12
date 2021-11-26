@@ -29,6 +29,6 @@
     </td>
 </tr>
 <tr class="skills">
-    <td colspan="1"><span class="note">{{ $user->profile->profession->title }}</span></td><!--optional($user->profile->profession) Esto es otra version sin el withdefault-->
-    <td colspan="4"><span class="note">{{ $user->skills->implode('name', ' ') ?: 'Sin habilidades' }}</span></td>
+    <td colspan="1"><span class="note">{{ $user->profile->profession->title }}</span></td>
+    <td colspan="4"><span class="note">{{ $user->skills->implode('name', ', ') ?: 'Sin habilidades' }}</span></td>
 </tr>

@@ -1,11 +1,10 @@
 <?php
 
-use App\{Profession, Skill, User};
+use App\{Profession, Skill, Team, User};
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
-
     private $professions;
     private $skills;
     private $teams;
@@ -21,7 +20,7 @@ class UserSeeder extends Seeder
 
         $this->createAdmin();
 
-        foreach (range(1,999) as $i){
+        foreach (range(1,999) as $i) {
             $this->createRandomUser();
         }
     }
@@ -30,17 +29,15 @@ class UserSeeder extends Seeder
     {
         $this->professions = Profession::all();
         $this->skills = Skill::all();
-        $this->teams = \App\Team::all();
+        $this->teams = Team::all();
     }
 
-    /**
-     * @return mixed
-     */
     private function createAdmin()
     {
         $user = User::create([
             'team_id' => $this->teams->firstWhere('name', 'IES Ingeniero')->id,
-            'name' => 'Pepe Pérez',
+            'first_name' => 'Pepe',
+            'last_name' => 'Pérez',
             'email' => 'pepe@mail.es',
             'password' => bcrypt('123456'),
             'role' => 'admin',
@@ -51,7 +48,6 @@ class UserSeeder extends Seeder
             'bio' => 'Programador',
             'profession_id' => $this->professions->where('title', 'Desarrollador Back-End')->first()->id,
         ]);
-        return $user;
     }
 
     private function createRandomUser(): void

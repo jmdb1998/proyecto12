@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserProfile extends Model
 {
-    Use SoftDeletes;
+    use SoftDeletes;
 
     protected $guarded = [];
 
-    public function profession(){
+    public function profession()
+    {
         return $this->belongsTo(Profession::class)
-            ->withDefault(['title' => '(Sin Profesion)']);
+            ->withDefault(['title' => '(Sin profesión)']);
     }
 }

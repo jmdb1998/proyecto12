@@ -1,11 +1,11 @@
 <form method="get" action="{{ route('users.index') }}">
     <div class="row row-filters">
         <div class="col-12">
-            @foreach(['' => 'Todos', 'with_team' => 'Con equipo', 'without_team' => 'Sin Equipo'] as $value => $text)
+            @foreach(['' => 'Todos', 'with_team' => 'Con equipo', 'without_team' => 'Sin equipo'] as $value => $text)
             <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" name="team" id="team_{{ $value ?: 'all'}}"
+                <input type="radio" class="form-check-input" name="team" id="team_{{ $value ?: 'all' }}"
                        value="{{ $value }}" {{ $value === request('team', '') ? 'checked' : '' }}>
-                <label class="form-check-label" for="team_{{ $value ?: 'all'}}">{{ $text }}</label>
+                <label class="form-check-label" for="team_{{ $value ?: 'all' }}">{{ $text }}</label>
             </div>
             @endforeach
         </div>
